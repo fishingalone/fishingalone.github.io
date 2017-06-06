@@ -31,7 +31,7 @@
 		<p>In the reinforcement learning problem, the learner is called the <i>agent</i>. It interacts with the outside <i>environment</i> at discrete time steps \( t=0,1,2,\ldots \). At each time step \( t\), the agent faces the environment in state \( s_t \in S\), where \( S\) is the set of possible states. It can take one of the actions \( a_t \in A(s_t) \), where \( A(s_t)\) is the set of actions in state \( s_t\). The strategy by which the agent selects actions is called its <i>policy</i>. A policy can be defined by \( \pi_t(s,a)\), which is the probability that \( a_t=a\) if \( s_t = s\). One time step later, the environment gives the agent a <i>reward</i> \( r_{t+1}\in R\) and evolves into a new state \( s_{t+1}\). <p>
 
 		<h3>An example</h3>
-		<img src="https://docs.google.com/drawings/d/1typlt_pjwhMzRy9jYEMj_5Sv_2v8gS8pTjqc3oqKS00/pub?w=960&h=720" style="width:50%"></img>
+		<img src="https://docs.google.com/drawings/d/1typlt_pjwhMzRy9jYEMj_5Sv_2v8gS8pTjqc3oqKS00/pub?w=960&h=720" style="width:60%"></img>
 		<p>Take a recycling robot as an example. The robot has two energy levels: high and low, represented by two large circles in the <i>transition graph</i>. The state set is<br>
 S = {high, low}.<br>
 The agent can take three actions-wait, search and recharge (represented by small circles in the graph):<br>
@@ -39,23 +39,108 @@ A(high) = {wait,search}<br>
 A(low) = {wait, search, recharge}.<br>
 When the energy level is high, it is unnecessary to recharge. The robot can initiate a period of active search and end up with high energy level with probability \alpha and low energy level with 1-\alpha. The expected reward of search is R^{search}. The robot can also wait without losing any battery power. The reward for wait is smaller R^{wait}&lt;R^{search}, though. When the energy level is low, active search leaves the robot low energy level with probability \beta and depleted 1-\beta. In the later case, the robot is penalized and have to be recharged.</p>
 
-		<h3>Goal</h3>
-		<p>The agent's goal is to maximze not the immediate return but the cumulative reward in the long run. We can fix the idea as follows. The agent chooses action \( a_t\) to maximize the discounted return
-\[
-R_t = r_{t+1} +\gamma r_{t+2} + \ldots = \sum_{k=0}^\infty \gamma^k r_{t+k+1},
-\]
-where \( \gamma\) is a parameter, \( 0\leq \gamma \leq 1\), called the discount rate.<p>
-
-		<h3>finite MDP</h3>
+		<h3>Finite MDP</h3>
 		<p>To make our life easier, we make the following simplifying assupmtions:
 			<ul>
-				<li>Both the state set and action sets \( S\) and \( A(s)\) are finite.<\li>
+				<li>Both the state set and action sets \( S\) and \( A(s)\) are finite.</li>
 				<li>Markov property: The environment's response at time \( t+1\) only depends on the state and action taken at time \( t\) and is independent of the previous histories.
 \[
 P(s_{t+1}=s', r_{t+1} = r \, | \, s_t,a_t,r_t,s_{t-1},a_{t-1},\ldots, s_0, a_0 ) = P(s_{t+1} = s', r_{t+1} = r \, | \, s_t, a_t )
 \]
 				</li>
-			</ul></p>
+			</ul>
+		A finite MDP is fully specified by its state and action sets, the <i>transition probability</i>
+\[
+P_{s,s'}^a = P(s_{t+1} = s' \, | \, s_t = s, a_t = a ),
+\]
+		and the expectation of the next reward
+\[
+R_{s,s'}^a = E(r_{t+1} \, | \, s_t = s, a_t = a, s_{t+1} = s').
+\]
+We can list these values in the recycling robot example.
+		</p>
+<table>
+	<tr>
+		<th>\( s\)</th>
+		<th>\( s'\)</th>
+		<th>\( a\)</th>
+		<th>\( P_{s,s'}^a\)</th>
+		<th>\( R_{s,s'}^a\)</th>
+	</tr>
+	<tr>
+		<th>high</th>
+		<th>high</th>
+		<th>search</th>
+		<th>\alpha</th>
+		<th>R^{search}</th>
+	</tr>
+	<tr>
+		<th>high</th>
+		<th>low</th>
+		<th>search</th>
+		<th>1-\alpha</th>
+		<th>R^{search}</th>
+	</tr>
+	<tr>
+		<th>low</th>
+		<th>high</th>
+		<th>search</th>
+		<th>1-\beta</th>
+		<th>-3</th>
+	</tr>
+	<tr>
+		<th>low</th>
+		<th>low</th>
+		<th>search</th>
+		<th>\beta</th>
+		<th>R^{search}</th>
+	</tr>
+	<tr>
+		<th>high</th>
+		<th>high</th>
+		<th>wait</th>
+		<th>1</th>
+		<th>R^{wait}</th>
+	</tr>
+	<tr>
+		<th>high</th>
+		<th>low</th>
+		<th>wait</th>
+		<th>0</th>
+		<th>R^{wait}</th>
+	</tr>
+	<tr>
+		<th>low</th>
+		<th>high</th>
+		<th>wait</th>
+		<th>0</th>
+		<th>R^{wait}</th>
+	</tr>
+	<tr>
+		<th>low</th>
+		<th>low</th>
+		<th>wait</th>
+		<th>1</th>
+		<th>R^{wait}</th>
+	</tr>
+	<tr>
+		<th>low</th>
+		<th>high</th>
+		<th>recharge</th>
+		<th>1</th>
+		<th>0</th>
+	</tr>
+</table>
+	</section>
+	<section>
+		<h2>Value Functions</h2>
+		<h3>Goal</h3>
+		<p>At each time \( t\), the agent's goal is to maximze not the immediate return but the cumulative reward in the long run. We can fix the idea as follows. The agent chooses action \( a_t\) to maximize the discounted return
+\[
+R_t = r_{t+1} +\gamma r_{t+2} + \ldots = \sum_{k=0}^\infty \gamma^k r_{t+k+1},
+\]
+where \( \gamma\) is a parameter, \( 0\leq \gamma \leq 1\), called the discount rate.<p>
+
 	</section>
     </body> 
 </html>
