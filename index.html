@@ -4,19 +4,38 @@
 	<script type="text/javascript" async
   	   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 	</script>
+	<style>
+		body {counter-reset: section}
+		h2:before {
+			counter-increment: section;
+			content: counter(section) " ";
+		}
+		p {
+			font-size: 1.1em;
+		} 
+	</style>
     </head>
     <body>
 	<h1>Markov Decision Process</h1>
 	<section>
 		<h2>Definitions</h2>
-		In the reinforcement learning problem, the learner is called the <i>agent</i>. It interacts with the outside <i>environment</i> at discrete time steps \( t=0,1,2,\ldots \). At each time step \( t\), the agent faces the environment in state \( s_t \in S\), where \( S\) is the set of possible states, and can choose action \( a_t \in A(s_t) \), where \( A(s_t)\) is the set of actions in state \( s_t\). The strategy by which the agent selects actions is called its <i>policy</i>. A policy can be defined by \( \pi_t(s,a)\), which is the probability that \( a_t=a\) if \( s_t = s\). One time step later, the environment gives the agent a <i>reward</i> \( r_{t+1}\in R\) and evolves into a new state \( s_{t+1}\). 
-		<img src="https://docs.google.com/drawings/d/1typlt_pjwhMzRy9jYEMj_5Sv_2v8gS8pTjqc3oqKS00/pub?w=960&h=720">
+		<p>In the reinforcement learning problem, the learner is called the <i>agent</i>. It interacts with the outside <i>environment</i> at discrete time steps \( t=0,1,2,\ldots \). At each time step \( t\), the agent faces the environment in state \( s_t \in S\), where \( S\) is the set of possible states. It can take one of the actions \( a_t \in A(s_t) \), where \( A(s_t)\) is the set of actions in state \( s_t\). The strategy by which the agent selects actions is called its <i>policy</i>. A policy can be defined by \( \pi_t(s,a)\), which is the probability that \( a_t=a\) if \( s_t = s\). One time step later, the environment gives the agent a <i>reward</i> \( r_{t+1}\in R\) and evolves into a new state \( s_{t+1}\). <p>
 
-		The agent's goal is to maximze not the immediate return but the cumulative reward in the long run. We can fix the idea as follows. The agent chooses action \( a_t\) to maximize the discounted return
+		<img src="https://docs.google.com/drawings/d/1typlt_pjwhMzRy9jYEMj_5Sv_2v8gS8pTjqc3oqKS00/pub?w=960&h=720"></img>
+		<p>Take a recycling robot as an example. The robot has two energy levels: high and low. The state set is 
+S = {high, low}. 
+The agent can take three actions-wait, search and recharge:
+A(high) = {wait,search}
+A(low) = {wait, search, recharge}.
+When the energy level is high, it is unnecessary to recharge. The robot can initiate a period of active search and end up with high energy level with probability \alpha and low energy level with 1-\alpha. The expected reward of search is R^{search}. The robot can also wait without losing any battery power. The reward for wait is smaller R^{wait}&lt;R^{search}, though. When the energy level is low, active search leaves the robot low energy level with probability \beta and depleted 1-\beta. In the later case, the robot is penalized and have to be recharged.</p>
+
+		<p>The agent's goal is to maximze not the immediate return but the cumulative reward in the long run. We can fix the idea as follows. The agent chooses action \( a_t\) to maximize the discounted return
 \[
 R_t = r_{t+1} +\gamma r_{t+2} + \ldots = \sum_{k=0}^\infty \gamma^k r_{t+k+1},
 \]
-where \( \gamma\) is a parameter, \( 0\leq \gamma \leq 1\), called the discount rate.
+where \( \gamma\) is a parameter, \( 0\leq \gamma \leq 1\), called the discount rate.<p>
+
+		<p>To make our life easier, we make the following simplifying assupmtions</p>
 	</section>
     </body> 
 </html>
