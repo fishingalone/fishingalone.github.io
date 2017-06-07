@@ -165,7 +165,12 @@ We call function \( V^\pi\) the <i>state value function for policy</i> \( \pi\).
 Similarly, we define the <i>action value function for policy</i> \( \pi\) as
 \[
 Q^\pi (s,a) = E_\pi (R_t \, | \, s_t = s,a_t = a) = E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+1} \, | \, s_t = s, a_t = a \right).
-\]</p>
+\]
+		Apparently, these two are related by
+\[
+V^\pi (s) = \sum_a \pi (s,a) Q^\pi (s,a).
+\]
+		</p>
 
 		<h3>Bellman Equation</h3>
 		<p>There is an iterative relationship of the value function that we can take advantage of,
@@ -179,8 +184,29 @@ V^\pi (s) &= E_\pi ( R_t \, |\, s_t = s ) \\
 \end{align*}
 \]
 		where it is implicit that the actions \( a\) are taken from the set \( A(s)\) and the next state \( s'\) are taken from the set \( S\).
-		This is known as the <i>Bellman equation</i>.
+		This is known as the <i>Bellman equation</i>.<br>
+		Similarly, the Bellman equation for action value policy function is
+\[
+Q^\pi (s,a) = \sum_{s'} P_{s,s'}^a ( R_{s,s'}^a + \gamma V(s') ).
+\]
 		</p>
+		<h3>Optimal policy</h3>
+		We say a policy \( \pi) is better than or equal to policy \( \pi'\) if its value function is greater than or equal to that of \( \pi'\) for all states \( V^\pi (s)\geq V^{\pi'} (s), \forall s\in S\). There is always at least one policy that is better than or equal to all other policies. They are called <i>optimal policies</i> and we deonte them as \( \pi^*\). They share the same state value functions and action value functions
+\[
+V^*(s) = \max_\pi V^\pi (s),
+\]
+and
+\[
+Q^*(s,a) = \max_\pi Q^\pi (s,a).
+\]
+		We can deduce for these two value functions the Bellman equations, called the <i> Bellman optimality equation</i> .
+\[
+\begin{align*}
+V^* (s) &= \max_{a\in A(s)} Q^*(s,a)\\
+&= \max_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^*(s') \right)
+\end{align*}
+\]
+	Once \( V^*\) is available, it is easy to deduce the optimal policy. For any state \( s\), there will be one or more actions at which the maximum is attained in the Bellman optimality equation. Any policy that assigns nonzero possibility only to these actions is an optimal policy.
 	</section>
 	<section>
 	<pre class="prettyprint"><code class="language-python">
