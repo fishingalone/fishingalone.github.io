@@ -4,6 +4,7 @@
 	<script type="text/javascript" async
   	   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 	</script>
+	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 	<style>
 		body {
 			counter-reset: section;
@@ -174,11 +175,18 @@ V^\pi (s) &= E_\pi ( R_t \, |\, s_t = s ) \\
 &= E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+1} \, |\, s_t = s \right) \\
 &= E_\pi \left( r_{t+1} + \gamma \sum_{k=0}^\infty \gamma^k r_{t+k+2} \, |\, s_t = s \right) \\
 & = \sum_a \pi (s,a) \sum_{s'} P_{s,s'}^a \left[ R_{s,s'}^a + \gamma E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+2} \, | \, s_{t+1} = s' \right) \right] \\
-& = \sum_a \pi(s,a) \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^\pi (s')\right).
+& = \sum_a \pi(s,a) \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^\pi (s')\right),
 \end{align*}
 \]
+		where it is implicit that the actions \( a\) are taken from the set \( A(s)\) and the next state \( s'\) are taken from the set \( S\).
 		This is known as the <i>Bellman equation</i>.
 		</p>
+	</section>
+	<section>
+	<pre class="prettyprint"><code class="language-python">
+def add(a,b):
+	return a+b
+	</code></pre>
 	</section>
 	<section>
 	<h2>Reference</h2>
