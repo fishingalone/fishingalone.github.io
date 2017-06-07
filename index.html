@@ -30,7 +30,7 @@
 		}
 		h2:before {
 			counter-increment: section;
-			content: counter(section) " ";
+			content: counter(section) ". ";
 		}
 		p {
 			font-size: 14pt;
@@ -64,7 +64,7 @@ P(s_{t+1}=s', r_{t+1} = r \, | \, s_t,a_t,r_t,s_{t-1},a_{t-1},\ldots, s_0, a_0 )
 \]
 				</li>
 			</ul>
-		A finite MDP is fully specified by its state and action sets, the <i>transition probability</i>
+		<p>A finite MDP is fully specified by its state and action sets, the <i>transition probability</i>
 \[
 P_{s,s'}^a = P(s_{t+1} = s' \, | \, s_t = s, a_t = a ),
 \]
@@ -72,8 +72,7 @@ P_{s,s'}^a = P(s_{t+1} = s' \, | \, s_t = s, a_t = a ),
 \[
 R_{s,s'}^a = E(r_{t+1} \, | \, s_t = s, a_t = a, s_{t+1} = s').
 \]
-We can list these values in the recycling robot example.
-		</p>
+We can list these values in the recycling robot example.</p>
 <table>
 	<tr>
 		<th>\( s\)</th>
@@ -149,13 +148,41 @@ We can list these values in the recycling robot example.
 	</section>
 	<section>
 		<h2>Value Functions</h2>
-		<h3>Goal</h3>
+		<h3>Discounted return</h3>
 		<p>At each time \( t\), the agent's goal is to maximze not the immediate return but the cumulative reward in the long run. We can fix the idea as follows. The agent chooses action \( a_t\) to maximize the discounted return
 \[
 R_t = r_{t+1} +\gamma r_{t+2} + \ldots = \sum_{k=0}^\infty \gamma^k r_{t+k+1},
 \]
 where \( \gamma\) is a parameter, \( 0\leq \gamma \leq 1\), called the discount rate.<p>
 
+		<h3>Definitions</h3>
+		<p>Recall that a policy \( \pi\) is a mapping from each state \( s\in S\) and action \( a \in A(s)\) to the probability \( \pi(s,a)\) of taking action \( a\) when in state \( s\). The expected return when starting in \( s\) and following the policy \( \pi\) thereafter is
+\[
+V^\pi (s) = E_\pi (R_t \, | \, s_t = s) = E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+1} \, | \, s_t = s \right).
+\]
+We call function \( V^\pi\) the <i>state value function for policy</i> \( \pi\).<br>
+Similarly, we define the <i>action value function for policy</i> \( \pi\) as
+\[
+Q^\pi (s,a) = E_\pi (R_t \, | \, s_t = s,a_t = a) = E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+1} \, | \, s_t = s, a_t = a \right).
+\]</p>
+
+		<h3>Bellman Equation</h3>
+		<p>There is an iterative relationship of the value function that we can take advantage of,
+\[
+\begin{align*}
+V^\pi (s) &= E_\pi ( R_t \, |\, s_t = s ) \\
+&= E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+1} \, |\, s_t = s \right) \\
+&= E_\pi \left( r_{t+1} + \gamma \sum_{k=0}^\infty \gamma^k r_{t+k+2} \, |\, s_t = s \right) \\
+& = \sum_a \pi (s,a) \sum_{s'} P_{s,s'}^a \left[ R_{s,s'}^a + \gamma E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+2} \, | \, s_{t+1} = s' \right) \right] \\
+& = \sum_a \pi(s,a) \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^\pi (s')\right).
+\end{align*}
+\]
+		This is known as the <i>Bellman equation</i>.
+		</p>
+	</section>
+	<section>
+	<h2>Reference</h2>
+	<p>Richard S. Sutton and Andrew G. Barto. 1998. Introduction to Reinforcement Learning (1st ed.). MIT Press, Cambridge, MA, USA.</p>
 	</section>
     </body> 
 </html>
