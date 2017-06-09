@@ -221,16 +221,19 @@ V_{k+1} (s) = \max_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V_k(s') \ri
 		which is called the <i>policy evaluation step</i>. We repeat the iteration until the value function values converge \( \lim_{k\to\infty} V_k = V^* \).
 		Once \( V^*\) is available, it is easy to deduce the optimal policy. For any state \( s\), there will be one or more actions at which the maximum is attained in the Bellman optimality equation
 \[
-\pi^* (s) = \mathop{\mathrm{arg\,min}}_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^*(s') \right).
+\pi^* (s) = \mathop{\mathrm{arg\,max}}_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^*(s') \right).
 \]
 		Actually any policy that assigns nonzero possibility only to these actions is an optimal policy.
 		</p>
 		<h3>Policy iteration</h3>
 		<p>There is another way to achieve the optimal policy. We start with a random policy \( \pi\) and say we have calculated its value function \( V^\pi \) using policy evaluation. We can invoke the following step, called the <a name="greedyimprovement">greedy improvement</a> step,
 \[
-\pi' (s) = \mathop{\mathrm{arg\,min}}_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^\pi (s') \right)
+\begin{align*}
+\pi' (s) &= \mathop{\mathrm{arg\,max}}_a Q^\pi (s,a) \\
+&= \mathop{\mathrm{arg\,max}}_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^\pi (s') \right)
+\end{align*}
 \]
-		to improve the policy.
+		to improve the policy. The reason is we can prove that \( V^{\pi'} \geq V^\pi\) if \( Q(\pi,\pi'(s)) \geq V^\pi (s)\).</p>
 		<h3>Modified Policy iteration</h3>
 		<p>We interleave the several <a href="#policyevaluation">policy evaluation steps</a> with the <a href="#greedyimprovement">greedy improvement step</a> in the hope that \( V,\pi \) will converge to \( V^*, \pi^*\) faster.</p>
 	</section>
