@@ -4,7 +4,6 @@
 	<script type="text/javascript" async
   	   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 	</script>
-	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 	<style>
 		body {
 			counter-reset: section;
@@ -43,27 +42,29 @@
 	<h1>Markov Decision Process</h1>
 	<section>
 		<h2>Definitions</h2>
-		<h3>Basics</h3>
-		<p>In the reinforcement learning problem, the learner is called the <i>agent</i>. It interacts with the outside <i>environment</i> at discrete time steps \( t=0,1,2,\ldots \). At each time step \( t\), the agent faces the environment in state \( s_t \in S\), where \( S\) is the set of possible states. It can take one of the actions \( a_t \in A(s_t) \), where \( A(s_t)\) is the set of actions in state \( s_t\). The strategy by which the agent selects actions is called its <i>policy</i>. A policy can be defined by \( \pi_t(s,a)\), which is the probability that \( a_t=a\) if \( s_t = s\). One time step later, the environment gives the agent a <i>reward</i> \( r_{t+1}\in R\) and evolves into a new state \( s_{t+1}\). <p>
+		<h3>Model</h3>
+		<p>In the reinforcement learning problem, the learner is called the <i>agent</i>. It interacts with the outside <i>environment</i> at discrete time steps \( t=0,1,2,\ldots \). At each time step \( t\), the environment is in state \( s_t \in S\), where \( S\) is the set of possible states. It can take one of the actions \( a_t \in A(s_t) \), where \( A(s_t)\) is the set of viable actions in state \( s_t\). The strategy by which the agent selects actions is called its <i>policy</i>. A policy can be defined by \( \pi_t(s,a)\), which is the probability that \( a_t=a\) if \( s_t = s\). One time step later, the environment gives the agent a <i>reward</i> \( r_{t+1}\in \mathbb{R}\) and evolves into a new state \( s_{t+1}\). <p>
 
 		<h3>An example</h3>
+		<p>Take a recycling robot as an example. The robot has two energy levels: high and low, represented by the two large circles in the <i>transition graph</i>.</p>
 		<img src="https://docs.google.com/drawings/d/1typlt_pjwhMzRy9jYEMj_5Sv_2v8gS8pTjqc3oqKS00/pub?w=960&h=720" style="width:60%"></img>
-		<p>Take a recycling robot as an example. The robot has two energy levels: high and low, represented by two large circles in the <i>transition graph</i>. The state set is<br>
+		<p>The state set is<br>
 S = {high, low}.<br>
 The agent can take three actions-wait, search and recharge (represented by small circles in the graph):<br>
 A(high) = {wait,search}<br>
 A(low) = {wait, search, recharge}.<br>
-When the energy level is high, it is unnecessary to recharge. The robot can initiate a period of active search and end up with high energy level with probability \alpha and low energy level with 1-\alpha. The expected reward of search is R^{search}. The robot can also wait without losing any battery power. The reward for wait is smaller R^{wait}&lt;R^{search}, though. When the energy level is low, active search leaves the robot low energy level with probability \beta and depleted 1-\beta. In the later case, the robot is penalized and have to be recharged.</p>
+When the energy level is high, it is unnecessary to recharge. The robot can initiate a period of active search and end up with high energy level with probability \alpha and low energy level with 1-\alpha. The expected reward of search is R^{search}. The robot can also wait without losing any battery power. The reward for wait is smaller R^{wait}&lt;R^{search}, though. When the energy level is low, active search leaves the robot at the low energy level with probability \beta and fully depleted 1-\beta. In the later case, the robot is penalized and have to be recharged.</p>
 
 		<h3>Finite MDP</h3>
 		<p>To make our life easier, we make the following simplifying assupmtions:
 			<ul>
-				<li>Both the state set and action sets \( S\) and \( A(s)\) are finite.</li>
+				<li>Both the state set and action sets \( S\) and \( A(s)\) are discrete and finite.</li>
 				<li>Markov property: The environment's response at time \( t+1\) only depends on the state and action taken at time \( t\) and is independent of the previous histories.
 \[
 P(s_{t+1}=s', r_{t+1} = r \, | \, s_t,a_t,r_t,s_{t-1},a_{t-1},\ldots, s_0, a_0 ) = P(s_{t+1} = s', r_{t+1} = r \, | \, s_t, a_t )
 \]
 				</li>
+				<li>The policy is independent of time \( \pi_t(s,a) = \pi(s,a) \).
 			</ul>
 		<p>A finite MDP is fully specified by its state and action sets, the <i>transition probability</i>
 \[
@@ -184,13 +185,16 @@ V^\pi (s) &= E_\pi ( R_t \, |\, s_t = s ) \\
 \end{align*}
 \]
 		where it is implicit that the actions \( a\) are taken from the set \( A(s)\) and the next state \( s'\) are taken from the set \( S\).
-		This is known as the <i>Bellman equation</i>.<br>
+		This is known as the <i>Bellman equation</i>. Given a policy, the Bellman equation gives us a way to compute the value function from solving an \( |S|\times |S|\) linear system.<br>
 		Similarly, the Bellman equation for action value policy function is
 \[
 Q^\pi (s,a) = \sum_{s'} P_{s,s'}^a ( R_{s,s'}^a + \gamma V(s') ).
 \]
 		</p>
-		<h3>Optimal policy</h3>
+	</section>
+	<section>
+		<h2>Optimal policy</h2>
+		<h3>Definitions</h3>
 		<p>We say a policy \( \pi\) is better than or equal to policy \( \pi'\) if its value function is greater than or equal to that of \( \pi'\) for all states \( V^\pi (s)\geq V^{\pi'} (s), \forall s\in S\). There is always at least one policy that is better than or equal to all other policies. They are called <i>optimal policies</i> and we deonte them as \( \pi^*\). They share the same state value functions and action value functions
 \[
 V^*(s) = \max_\pi V^\pi (s),
@@ -199,20 +203,23 @@ and
 \[
 Q^*(s,a) = \max_\pi Q^\pi (s,a).
 \]
-		We can deduce for these two value functions the Bellman equations, called the <i> Bellman optimality equation</i> .
+		</p>
+		<h3>Bellman optimality equation and value iteration</h3>
+		<p>We can deduce for these two value functions the Bellman equations, called the <i> Bellman optimality equation</i> .
 \[
 \begin{align*}
 V^* (s) &= \max_{a\in A(s)} Q^*(s,a)\\
 &= \max_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^*(s') \right)
 \end{align*}
 \]
-	Once \( V^*\) is available, it is easy to deduce the optimal policy. For any state \( s\), there will be one or more actions at which the maximum is attained in the Bellman optimality equation. Any policy that assigns nonzero possibility only to these actions is an optimal policy.	</p>
-	</section>
-	<section>
-	<pre class="prettyprint"><code class="language-python">
-def add(a,b):
-	return a+b
-	</code></pre>
+		We can use the fixed point iteration to solve for the optimal value function, which is called <i>value iteration</i>. Once \( V^*\) is available, it is easy to deduce the optimal policy. For any state \( s\), there will be one or more actions at which the maximum is attained in the Bellman optimality equation
+\[
+\pi^* (s) = \operatornamewithlimits{arg\,min}_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^*(s') \right).
+\]
+		Actually any policy that assigns nonzero possibility only to these actions is an optimal policy.
+		</p>
+		<h3>Policy improvement</h3>
+		
 	</section>
 	<section>
 	<h2>Reference</h2>
