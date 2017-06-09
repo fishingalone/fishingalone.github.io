@@ -213,10 +213,11 @@ V^* (s) &= \max_{a\in A(s)} Q^*(s,a)\\
 \end{align*}
 \]
 		<i>Value iteration</i> means to solve for the optimal value function using the fixed point iteration. One step would look like
-		<a name="policyevaluation"></a>
+		<a name="policyevaluation">
 \[
 V_{k+1} (s) = \max_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V_k(s') \right),\quad k=0,1,2,\ldots,
 \]
+		</a>
 		which is called the <i>policy evaluation step</i>. We repeat the iteration until the value function values converge \( \lim_{k\to\infty} V_k = V^* \).
 		Once \( V^*\) is available, it is easy to deduce the optimal policy. For any state \( s\), there will be one or more actions at which the maximum is attained in the Bellman optimality equation
 \[
@@ -225,9 +226,13 @@ V_{k+1} (s) = \max_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V_k(s') \ri
 		Actually any policy that assigns nonzero possibility only to these actions is an optimal policy.
 		</p>
 		<h3>Policy iteration</h3>
-		There is another way to achieve the optimal policy. We start with a random policy and successively improves on it. 
+		<p>There is another way to achieve the optimal policy. We start with a random policy \( \pi\) and say we have calculated its value function \( V^\pi \) using policy evaluation. We can invoke the following step, called the <a name="greedyimprovement">greedy improvement</a> step,
+\[
+\pi' (s) = \mathop{\mathrm{arg\,min}}_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^\pi (s') \right)
+\]
+		to improve the policy.
 		<h3>Modified Policy iteration</h3>
-		We interleave the several <a href="#policyevaluation">policy evaluation steps</a> with the <a href="#">greedy improvement step</a> in the hope that \( V,\pi \) will converge to \( V^*, \pi^*\) faster.
+		<p>We interleave the several <a href="#policyevaluation">policy evaluation steps</a> with the <a href="#greedyimprovement">greedy improvement step</a> in the hope that \( V,\pi \) will converge to \( V^*, \pi^*\) faster.</p>
 	</section>
 	<section>
 	<h2>Reference</h2>
