@@ -1,0 +1,222 @@
+<html> 
+    <head> 
+        <title>Markov Decision Process</title>
+	<script type="text/javascript" async
+  	   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+	<style>
+		body {
+			counter-reset: section;
+			margin: 5em 20em;
+		}
+		img {
+			display: block;
+			margin: 0 auto;
+		}
+		table {
+			margin: 0 auto;
+			width: 60%;
+			border-collapse: collapse;
+		}
+		tr:first-child {
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+		}
+		tr:last-child {
+			border-bottom: 1px solid black;
+		}
+		td {
+			text-align: center;
+		}
+		h2:before {
+			counter-increment: section;
+			content: counter(section) ". ";
+		}
+		p {
+			font-size: 14pt;
+			line-height: 1.45;
+		} 
+	</style>
+    </head>
+    <body>
+	<h1>Markov Decision Process</h1>
+	<section>
+		<h2>Definitions</h2>
+		<h3>Basics</h3>
+		<p>In the reinforcement learning problem, the learner is called the <i>agent</i>. It interacts with the outside <i>environment</i> at discrete time steps \( t=0,1,2,\ldots \). At each time step \( t\), the agent faces the environment in state \( s_t \in S\), where \( S\) is the set of possible states. It can take one of the actions \( a_t \in A(s_t) \), where \( A(s_t)\) is the set of actions in state \( s_t\). The strategy by which the agent selects actions is called its <i>policy</i>. A policy can be defined by \( \pi_t(s,a)\), which is the probability that \( a_t=a\) if \( s_t = s\). One time step later, the environment gives the agent a <i>reward</i> \( r_{t+1}\in R\) and evolves into a new state \( s_{t+1}\). <p>
+
+		<h3>An example</h3>
+		<img src="https://docs.google.com/drawings/d/1typlt_pjwhMzRy9jYEMj_5Sv_2v8gS8pTjqc3oqKS00/pub?w=960&h=720" style="width:60%"></img>
+		<p>Take a recycling robot as an example. The robot has two energy levels: high and low, represented by two large circles in the <i>transition graph</i>. The state set is<br>
+S = {high, low}.<br>
+The agent can take three actions-wait, search and recharge (represented by small circles in the graph):<br>
+A(high) = {wait,search}<br>
+A(low) = {wait, search, recharge}.<br>
+When the energy level is high, it is unnecessary to recharge. The robot can initiate a period of active search and end up with high energy level with probability \alpha and low energy level with 1-\alpha. The expected reward of search is R^{search}. The robot can also wait without losing any battery power. The reward for wait is smaller R^{wait}&lt;R^{search}, though. When the energy level is low, active search leaves the robot low energy level with probability \beta and depleted 1-\beta. In the later case, the robot is penalized and have to be recharged.</p>
+
+		<h3>Finite MDP</h3>
+		<p>To make our life easier, we make the following simplifying assupmtions:
+			<ul>
+				<li>Both the state set and action sets \( S\) and \( A(s)\) are finite.</li>
+				<li>Markov property: The environment's response at time \( t+1\) only depends on the state and action taken at time \( t\) and is independent of the previous histories.
+\[
+P(s_{t+1}=s', r_{t+1} = r \, | \, s_t,a_t,r_t,s_{t-1},a_{t-1},\ldots, s_0, a_0 ) = P(s_{t+1} = s', r_{t+1} = r \, | \, s_t, a_t )
+\]
+				</li>
+			</ul>
+		<p>A finite MDP is fully specified by its state and action sets, the <i>transition probability</i>
+\[
+P_{s,s'}^a = P(s_{t+1} = s' \, | \, s_t = s, a_t = a ),
+\]
+		and the expectation of the next reward
+\[
+R_{s,s'}^a = E(r_{t+1} \, | \, s_t = s, a_t = a, s_{t+1} = s').
+\]
+We can list these values in the recycling robot example.</p>
+<table>
+	<tr>
+		<th>\( s\)</th>
+		<th>\( s'\)</th>
+		<th>\( a\)</th>
+		<th>\( P_{s,s'}^a\)</th>
+		<th>\( R_{s,s'}^a\)</th>
+	</tr>
+	<tr>
+		<td>high</td>
+		<td>high</td>
+		<td>search</td>
+		<td>\alpha</td>
+		<td>R^{search}</td>
+	</tr>
+	<tr>
+		<td>high</td>
+		<td>low</td>
+		<td>search</td>
+		<td>1-\alpha</td>
+		<td>R^{search}</td>
+	</tr>
+	<tr>
+		<td>low</td>
+		<td>high</td>
+		<td>search</td>
+		<td>1-\beta</td>
+		<td>-3</td>
+	</tr>
+	<tr>
+		<td>low</td>
+		<td>low</td>
+		<td>search</td>
+		<td>\beta</td>
+		<td>R^{search}</td>
+	</tr>
+	<tr>
+		<td>high</td>
+		<td>high</td>
+		<td>wait</td>
+		<td>1</td>
+		<td>R^{wait}</td>
+	</tr>
+	<tr>
+		<td>high</td>
+		<td>low</td>
+		<td>wait</td>
+		<td>0</td>
+		<td>R^{wait}</td>
+	</tr>
+	<tr>
+		<td>low</td>
+		<td>high</td>
+		<td>wait</td>
+		<td>0</td>
+		<td>R^{wait}</td>
+	</tr>
+	<tr>
+		<td>low</td>
+		<td>low</td>
+		<td>wait</td>
+		<td>1</td>
+		<td>R^{wait}</td>
+	</tr>
+	<tr>
+		<td>low</td>
+		<td>high</td>
+		<td>recharge</td>
+		<td>1</td>
+		<td>0</td>
+	</tr>
+</table>
+	</section>
+	<section>
+		<h2>Value Functions</h2>
+		<h3>Discounted return</h3>
+		<p>At each time \( t\), the agent's goal is to maximze not the immediate return but the cumulative reward in the long run. We can fix the idea as follows. The agent chooses action \( a_t\) to maximize the discounted return
+\[
+R_t = r_{t+1} +\gamma r_{t+2} + \ldots = \sum_{k=0}^\infty \gamma^k r_{t+k+1},
+\]
+where \( \gamma\) is a parameter, \( 0\leq \gamma \leq 1\), called the discount rate.<p>
+
+		<h3>Definitions</h3>
+		<p>Recall that a policy \( \pi\) is a mapping from each state \( s\in S\) and action \( a \in A(s)\) to the probability \( \pi(s,a)\) of taking action \( a\) when in state \( s\). The expected return when starting in \( s\) and following the policy \( \pi\) thereafter is
+\[
+V^\pi (s) = E_\pi (R_t \, | \, s_t = s) = E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+1} \, | \, s_t = s \right).
+\]
+We call function \( V^\pi\) the <i>state value function for policy</i> \( \pi\).<br>
+Similarly, we define the <i>action value function for policy</i> \( \pi\) as
+\[
+Q^\pi (s,a) = E_\pi (R_t \, | \, s_t = s,a_t = a) = E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+1} \, | \, s_t = s, a_t = a \right).
+\]
+		Apparently, these two are related by
+\[
+V^\pi (s) = \sum_a \pi (s,a) Q^\pi (s,a).
+\]
+		</p>
+
+		<h3>Bellman Equation</h3>
+		<p>There is an iterative relationship of the value function that we can take advantage of,
+\[
+\begin{align*}
+V^\pi (s) &= E_\pi ( R_t \, |\, s_t = s ) \\
+&= E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+1} \, |\, s_t = s \right) \\
+&= E_\pi \left( r_{t+1} + \gamma \sum_{k=0}^\infty \gamma^k r_{t+k+2} \, |\, s_t = s \right) \\
+& = \sum_a \pi (s,a) \sum_{s'} P_{s,s'}^a \left[ R_{s,s'}^a + \gamma E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+2} \, | \, s_{t+1} = s' \right) \right] \\
+& = \sum_a \pi(s,a) \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^\pi (s')\right),
+\end{align*}
+\]
+		where it is implicit that the actions \( a\) are taken from the set \( A(s)\) and the next state \( s'\) are taken from the set \( S\).
+		This is known as the <i>Bellman equation</i>.<br>
+		Similarly, the Bellman equation for action value policy function is
+\[
+Q^\pi (s,a) = \sum_{s'} P_{s,s'}^a ( R_{s,s'}^a + \gamma V(s') ).
+\]
+		</p>
+		<h3>Optimal policy</h3>
+		<p>We say a policy \( \pi\) is better than or equal to policy \( \pi'\) if its value function is greater than or equal to that of \( \pi'\) for all states \( V^\pi (s)\geq V^{\pi'} (s), \forall s\in S\). There is always at least one policy that is better than or equal to all other policies. They are called <i>optimal policies</i> and we deonte them as \( \pi^*\). They share the same state value functions and action value functions
+\[
+V^*(s) = \max_\pi V^\pi (s),
+\]
+and
+\[
+Q^*(s,a) = \max_\pi Q^\pi (s,a).
+\]
+		We can deduce for these two value functions the Bellman equations, called the <i> Bellman optimality equation</i> .
+\[
+\begin{align*}
+V^* (s) &= \max_{a\in A(s)} Q^*(s,a)\\
+&= \max_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^*(s') \right)
+\end{align*}
+\]
+	Once \( V^*\) is available, it is easy to deduce the optimal policy. For any state \( s\), there will be one or more actions at which the maximum is attained in the Bellman optimality equation. Any policy that assigns nonzero possibility only to these actions is an optimal policy.	</p>
+	</section>
+	<section>
+	<pre class="prettyprint"><code class="language-python">
+def add(a,b):
+	return a+b
+	</code></pre>
+	</section>
+	<section>
+	<h2>Reference</h2>
+	<p>Richard S. Sutton and Andrew G. Barto. 1998. Introduction to Reinforcement Learning (1st ed.). MIT Press, Cambridge, MA, USA.</p>
+	</section>
+    </body> 
+</html>
