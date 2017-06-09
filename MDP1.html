@@ -205,21 +205,29 @@ Q^*(s,a) = \max_\pi Q^\pi (s,a).
 \]
 		</p>
 		<h3>Bellman optimality equation and value iteration</h3>
-		<p>We can deduce for these two value functions the Bellman equations, called the <i> Bellman optimality equation</i> .
+		<p>We can deduce for these two value functions the Bellman equations, called the <i>Bellman optimality equation</i> .
 \[
 \begin{align*}
 V^* (s) &= \max_{a\in A(s)} Q^*(s,a)\\
 &= \max_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^*(s') \right)
 \end{align*}
 \]
-		We can use the fixed point iteration to solve for the optimal value function, which is called <i>value iteration</i>. Once \( V^*\) is available, it is easy to deduce the optimal policy. For any state \( s\), there will be one or more actions at which the maximum is attained in the Bellman optimality equation
+		<i>Value iteration</i> means to solve for the optimal value function using the fixed point iteration. One step would look like
+		<a name="policyevaluation"></a>
 \[
-\pi^* (s) = \operatornamewithlimits{arg\,min}_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^*(s') \right).
+V_{k+1} (s) = \max_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V_k(s') \right),\quad k=0,1,2,\ldots,
+\]
+		which is called the <i>policy evaluation step</i>. We repeat the iteration until the value function values converge \( \lim_{k\to\infty} V_k = V^* \).
+		Once \( V^*\) is available, it is easy to deduce the optimal policy. For any state \( s\), there will be one or more actions at which the maximum is attained in the Bellman optimality equation
+\[
+\pi^* (s) = \mathop{\mathrm{arg\,min}}_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^*(s') \right).
 \]
 		Actually any policy that assigns nonzero possibility only to these actions is an optimal policy.
 		</p>
-		<h3>Policy improvement</h3>
-		
+		<h3>Policy iteration</h3>
+		There is another way to achieve the optimal policy. We start with a random policy and successively improves on it. 
+		<h3>Modified Policy iteration</h3>
+		We interleave the several <a href="#policyevaluation">policy evaluation steps</a> with the <a href="#">greedy improvement step</a> in the hope that \( V,\pi \) will converge to \( V^*, \pi^*\) faster.
 	</section>
 	<section>
 	<h2>Reference</h2>
