@@ -5,13 +5,33 @@
   	   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<style>
+	   body {
+			counter-reset: section;
+			margin: 5em 20em;
+	   }
+	   h2:before {
+			counter-increment: section;
+			content: counter(section) ". ";
+	   }
 	   p.content-one {
     		display:none;
 	   }
 	</style>
     </head>
     <body>
-	<h1>Interpolation Space Theory</h1>
+	<h1 class="text-center">Interpolation Spaces</h1>
+	<section><h2>Basics</h2>
+		<h3>Definitions</h3>
+		<p>Let's say there are two normed spaces \( X_0\) and \( X_1\). We call \( X_0\) and \( X_1\) a compatible pair \( X=(X_0,X_1)\) if they are subspaces of some larger vector space. The intersection of the two spaces is a normed space defined with
+\[
+\| u\|_{X_0\cap X_1} := \left( \| u\|_{X_0}^2 + \| u\|_{X_1}^2 \right)^{1/2}.
+\]
+		The sum of the two spaces is a normed space with
+\[
+\| u\|_{X_0+X_1} := \inf_{\substack{u_0\in X_0\\u_1\in X_1\\\text{s.t.} u=u_0+u_1}} \left{ \| u_0\|_{X_0}^2 + \| u_1\|_{X_1}^2 \right}^{1/2}.
+\]
+	</p>
+	</section>
 	<p class="expand-one"><a href="#">Click Here To Display The Content</a></p>
     	<p class="content-one">This is the content that was hidden before, but now is... Well, visible!"</p>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
