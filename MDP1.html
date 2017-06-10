@@ -233,7 +233,7 @@ V_{k+1} (s) = \max_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V_k(s') \ri
 &= \mathop{\mathrm{arg\,max}}_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^\pi (s') \right)
 \end{align*}
 \]
-		to improve the policy. The reason is we can prove that \( V^{\pi'} \geq V^\pi\) if \( Q(\pi,\pi'(s)) \geq V^\pi (s)\).</p>
+		to improve the policy. The reason is we can prove that \( V^{\pi'} \geq V^\pi\) if \( Q^\pi(s,\pi'(s)) \geq V^\pi (s)\).</p>
 		<h3>Modified Policy iteration</h3>
 		<p>We interleave the several <a href="#policyevaluation">policy evaluation steps</a> with the <a href="#greedyimprovement">greedy improvement step</a> in the hope that \( V,\pi \) will converge to \( V^*, \pi^*\) faster.</p>
 	</section>
