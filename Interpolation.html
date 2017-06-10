@@ -68,24 +68,31 @@ K(t,u) := \inf_{\substack{u_0\in X_0, u_1\in X_1\\\text{s.t. } u=u_0+u_1}} \left
 \[
 K_{\theta,q} (X) := \left\{ u\in X_0+X_1 \, :\, \| K(\cdot, u)\|_{\theta, q} <\infty\right\}
 \]
-	with the norm being the weighted \( L_q\)-norm of the K-functional,
+	with the weighted \( L_q\)-norm of the K-functional,
 \[
 \| u\|_{K_{\theta,q}(X)} := \| K(\cdot, u)\|_{\theta,q}.
 \]
 	We are able to prove the following:
-	<strong>Lemma 1</strong> If \( u\in X_0\cap X_1\), then \( u\in K_{\theta,q}(X)\) and
+
+	<strong>Lemma 1</strong> If \( u\in X_0\cap X_1\), then \( u\in K_{\theta,q}(X)\) and there exists a constant \( C\) only depending on \( q\) and \( \theta\) such that
 \[
-\| u\|_{K_{\theta,q}(X)} \leq \| u\|_{X_0}^{1-\theta}\| u\|_{X_1}^\theta.
+\| u\|_{K_{\theta,q}(X)} \leq C \| u\|_{X_0}^{1-\theta}\| u\|_{X_1}^\theta.
 \]
 	</p>
-	<p class="expand-one"><a href="#">Proof:</a></p>
+	<p class="expand-one"><a href="javascript:void(0)">Proof:</a></p>
 	<p class="content-one">
+	By definition,
 \[
-\| K(\cdot, u)\|_{\theta,q} = \left( \int_0^\infty |t^{-\theta} K(t,u)|^q {\mathrm{d}t\over t}\right)^{1/q}
+K(t,u) \leq \min (\| u\|_{X_0}, t\| u\|_{X_1} ) = \| u\|_{X_0} \min (1, at),
+\]
+	where we let \( a := \| u\|_{X_1}/\| u\|_{X_0}\). The special case \( u=0\) is trivial. 
+	Then we deduce from the scaling and dilatation property (\( \| t\mapsto f(at)\|_{\theta,q} = a^\theta \| f\|_{\theta,q}\) ) of the weighted norm that
+\[
+\| K(\cdot, u)\|_{\theta,q} = \| u\|_{X_0} a^\theta \| \min (1,\cdot)\|_{\theta,q} = C \| u\|_{X_0}^{1-\theta} \| u\|_{X_1}^\theta.
 \]
 	</p>
 	</section>
-	<p class="expand-one"><a href="#">Click Here To Display The Content</a></p>
+	<p class="expand-one"><a href="javascript:void(0)">Click Here To Display The Content</a></p>
     	<p class="content-one">This is the content that was hidden before, but now is... Well, visible!"</p>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
   	   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
