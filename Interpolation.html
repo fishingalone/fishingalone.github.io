@@ -16,9 +16,6 @@
 	   p {
 		font-size: 14pt;
 	   }
-	   p.content-one {
-    		display:none;
-	   }
 	</style>
     </head>
     <body>
@@ -78,9 +75,9 @@ K_{\theta,q} (X) := \left\{ u\in X_0+X_1 \, :\, \| K(\cdot, u)\|_{\theta, q} <\i
 \| u\|_{K_{\theta,q}(X)} \leq C \| u\|_{X_0}^{1-\theta}\| u\|_{X_1}^\theta.
 \]
 	</p>
-	<p class="expand-one"><a href="javascript:void(0)">Proof:</a></p>
-	<p class="content-one">
-	By definition,
+	<button type="button" class="btn btn-outline-info" data-toggle="collapse" data-target="#pflem1">Proof:</button>
+	<div id="pflem1" class="collapse">
+		<p>By definition,
 \[
 K(t,u) \leq \min (\| u\|_{X_0}, t\| u\|_{X_1} ) = \| u\|_{X_0} \min (1, at),
 \]
@@ -89,37 +86,24 @@ K(t,u) \leq \min (\| u\|_{X_0}, t\| u\|_{X_1} ) = \| u\|_{X_0} \min (1, at),
 \[
 \| K(\cdot, u)\|_{\theta,q} = \| u\|_{X_0} a^\theta \| \min (1,\cdot)\|_{\theta,q} = C \| u\|_{X_0}^{1-\theta} \| u\|_{X_1}^\theta.
 \]
-	</p><br>
+		</p>
+	</div>
 	<p><strong>Proposition 1</strong> The inclusion \( X_0\cap X_1\subset K_{\theta,q}(X)\) is continuous, or equivalently, there exists a constant \( C\) only depending on \( q\) and \(\theta\) such that
 \[
 \| u\|_{K_{\theta,q}(X)}\leq C \| u\|_{X_0\cap X_1}.
 \]
 	</p>
-<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
-  <div id="demo" class="collapse">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </div>
-	<p class="expand-one"><a href="javascript:void(0)">Proof:</a></p>
-	<p class="content-one">
-	By Young's inequality with \( p = (1-\theta)^{-1}\) and \( p^* = 1/(1-1/p) = \theta^{-1}\),
+	<button type="button" class="btn btn-outline-info" data-toggle="collapse" data-target="#pfpp1">Proof:</button>
+  	<div id="pfpp1" class="collapse">
+		<p>By Young's inequality with \( p = (1-\theta)^{-1}\) and \( p^* = 1/(1-1/p) = \theta^{-1}\),
 \[
 \| u\|_{X_0}^{1-\theta} \| u\|_{X_1}^\theta \leq {\left( \| u\|_{X_0}^{1-\theta}\right)^p\over p} + {\left( \| u\|_{X_1}^\theta \right)^{p^*}\over p^*} = (1-\theta)\| u\|_{X_0} + \theta \| u\|_{X_1} \leq \left[ (1-\theta)^2+\theta^2 \right]^{1/2} \| u\|_{X_0\cap X_1}.
 \]
-	The result then follows from Lemma 1.
-	</p><br>
-	
+		The result then follows from Lemma 1.</p>
+  	</div>
 	</section>
-	<p class="expand-one"><a href="javascript:void(0)">Click Here To Display The Content</a></p>
-    	<p class="content-one">This is the content that was hidden before, but now is... Well, visible!"</p>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
   	   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<script>
-	   $('.expand-one').click(function(){
-		$('.content-one').slideToggle('slow');
-	   });
-	</script>
     </body>
 </html>
