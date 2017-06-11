@@ -88,7 +88,7 @@ K(t,u) \leq \min (\| u\|_{X_0}, t\| u\|_{X_1} ) = \| u\|_{X_0} \min (1, at),
 \]
 		</p>
 	</div>
-	<p><strong>Proposition 1</strong> The inclusion \( X_0\cap X_1\subset K_{\theta,q}(X)\) is continuous, or equivalently, there exists a constant \( C\) only depending on \( q\) and \(\theta\) such that
+	<p><strong>Proposition 1</strong> The inclusion \( X_0\cap X_1\subset K_{\theta,q}(X)\) is continuous, or equivalently, there exists a constant \( C\) only depending on \( q\) and \( \theta\) such that
 \[
 \| u\|_{K_{\theta,q}(X)}\leq C \| u\|_{X_0\cap X_1}.
 \]
@@ -101,7 +101,24 @@ K(t,u) \leq \min (\| u\|_{X_0}, t\| u\|_{X_1} ) = \| u\|_{X_0} \min (1, at),
 \]
 		The result then follows from Lemma 1.</p>
   	</div>
+	<p><strong>Proposition 2</strong> The inclusion \( K_{\theta,q}(X)\subset X_0+X_1\) is continuous, or equivalently, there exists a constant \( C\) only depending on \( q\) and \( \theta\) such that
+\[
+\| u\|_{X_0+X_1}\leq C\| u\|_{K_{\theta,q}(X)}.
+\]
+	</p>
+	<button type="button" class="btn btn-outline-info" data-toggle="collapse" data-target="#pfpp2">Proof:</button>
+  	<div id="pfpp2" class="collapse">
+		<p>It obviously follows from taking the weighted norm on the both sides of
+\[
+\min (1,t) \| u\|_{X_0+X_1} \leq K(t,u).
+\]
+		</p>
+	</div>
 	</section>
+	<ul class="pager">
+  		<li class="diabled"><a href="javascript:void(0)">Previous</a></li>
+  		<li><a href="#">Next</a></li>
+	</ul>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
   	   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
