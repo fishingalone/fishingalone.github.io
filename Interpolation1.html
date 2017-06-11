@@ -22,7 +22,7 @@
 	<h1 class="text-center">Interpolation Spaces</h1>
 	<section><h2>Interpolation of Soblev spaces</h2>
 	If \( X_0\) and \( X_1\) are Sobolev spaces, then the K-functional can be computed explicitly via the Fourier transform. 
-	<p><strong>Theorem 1</strong> Suppose \( s_0,s_1\in \mathbb{R}\). Let \( s=(1-\theta )s_0 + \theta s_1, 0<\theta <1 \) be a number in between. We can prove the following interpolatio result 
+	<p><strong>Theorem 1</strong> Suppose \( s_0,s_1\in \mathbb{R}\). Let \( s=(1-\theta )s_0 + \theta s_1, 0<\theta <1 \) be a number in between. We can prove the following interpolation result 
 \[
 \left( H^{s_0}(\mathbb{R}^n), H^{s_1}(\mathbb{R}^n) \right)_{\theta,2} = H^s(\mathbb{R}^n).
 \]
@@ -31,7 +31,22 @@
   	<div id="pfthm1" class="collapse">
 		<p>Let \( u=u_0+u_1\) with \( u_j \in H^{s_j}(\mathbb{R}^n)\) for \( j=0,1\). We write the Sobolev norm using the Fourier definition:
 \[
-\| u_0\|_{H^{s_0}(\mathbb{R}^n)}^2 + t^2\| u_1\|_{H^{s_1}(\mathbb{R}^n)}^2 = \int_{\mathbb{R}^n} (1+|\xi|^2)^{s_0}|\hat{u}_0(\xi)|^2 + t^2(1+|\xi|^2)^{s_1} |\hat{u}_1(\xi)|^2 ,\mathrm{d}\xi.
+\| u_0\|_{H^{s_0}(\mathbb{R}^n)}^2 + t^2\| u_1\|_{H^{s_1}(\mathbb{R}^n)}^2 = \int_{\mathbb{R}^n} (1+|\xi|^2)^{s_0}|\hat{u}_0(\xi)|^2 + t^2(1+|\xi|^2)^{s_1} |\hat{u}_1(\xi)|^2 \mathrm{d}\xi.
+\]
+		Since \( \hat{u}(\xi) = \hat{u}_0(\xi ) + \hat{u}_1(\xi )\), we obtain the minimum of the integrand from B.4 that for each \( \xi\). Therefore
+\[
+\begin{align*}
+K (t,u;H^{s_0}(\mathbb{R}^n) ,H^{s_1}(\mathbb{R}^n) )^2 &= \int_{\mathbb{R}^n} {t^2(1+|\xi|^2)^{s_0+s_1}\over (1+|\xi|^2)^{s_0} + t^2(1+|\xi|^2)^{s_1}} |\hat{u}(\xi)|^2 \,\mathrm{d} \xi \\
+& = \int_{\mathbb{R}^n} (1+|\xi|^2)^{s_0} f(a(\xi) t)^2 |\hat{u}(\xi)|^2\,\mathrm{d} \xi,
+\end{align*}
+\]
+		where
+\[
+a(\xi ) = (1+|\xi|^2)^{(s_1-s_0)/2}\quad \text{ and } \quad f(t) = {t\over \sqrt{1+t^2}}.
+\]
+		Thus,
+\[
+\| K(\cdot, u)\|_{\theta,2}^2 = \int_{\mathbb{R}^n} (1+|\xi|^2)^{s_0} a(\xi)^{2\theta} \| f\|_{\theta,2}^2 |\hat{u}(\xu )|^2\,\mathrm{d} \xi = \| f\|_{\theta,2}^2 \| u\|_{H^s(\mathbb{R}^n)}^2.
 \]
 		</p>
 	</div>
@@ -55,8 +70,8 @@
 	</div>
 	</section>
 	<ul class="pager">
-  		<li class="disabled"><a href="javascript:void(0)">Previous</a></li>
-  		<li><a href="#">Next</a></li>
+  		<li><a href="Interpolation.html">Previous</a></li>
+  		<li class="disabled"><a href="#">Next</a></li>
 	</ul>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
   	   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
