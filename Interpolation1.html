@@ -9,7 +9,7 @@
 			counter-reset: section 2;
 			margin: 5em 20em;
 	   }
-	   h2:before {
+	   h2.title:before {
 			counter-increment: section;
 			content: counter(section) ". ";
 	   }
@@ -20,7 +20,7 @@
     </head>
     <body>
 	<h1 class="text-center">Interpolation Spaces</h1>
-	<section><h2>Interpolation of Soblev spaces</h2>
+	<section><h2 class="title">Interpolation of Soblev spaces</h2>
 	<p>If \( X_0\) and \( X_1\) are Sobolev spaces, then the K-functional can be computed explicitly via the Fourier transform. <br>
 	<strong>Theorem 1</strong> Suppose \( s_0,s_1\in \mathbb{R}\). Let \( s=(1-\theta )s_0 + \theta s_1, 0<\theta <1 \) be a number in between. We can prove the following interpolation result 
 \[
@@ -53,9 +53,7 @@ a(\xi ) = (1+|\xi|^2)^{(s_1-s_0)/2}\quad \text{ and } \quad f(t) = {t\over \sqrt
 	</div>
 	
 	<p><strong>Theorem 2</strong> Let \( \Omega\) be a non-empty open set in \( \mathbb{R}^n\). Suppose \( s_0,s_1\in\mathbb{R}^n\) and \( s=(1-\theta)s_0 +\theta s_1, 0<\theta <1\) a number in between. Then
-\[
 
-\]
 	</p>
 	<h3>Appendix</h3>
 	<p><strong>B.4</strong> Fix real numbers \( A_0>0\) and \( A_1>0\) and a complex number \( z\). Show that
