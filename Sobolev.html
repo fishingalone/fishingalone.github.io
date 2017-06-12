@@ -1,0 +1,44 @@
+<html> 
+    <head> 
+        <title>Sobolev spaces</title>
+	<script type="text/javascript" async
+  	   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<style>
+	   body {
+			counter-reset: section 2;
+			margin: 5em 20em;
+	   }
+	   h2.title:before {
+			counter-increment: section;
+			content: counter(section) ". ";
+	   }
+	   p {
+		font-size: 14pt;
+	   }
+	</style>
+    </head>
+    <body>
+	<h1 class="text-center">Relationship between Sobolev spaces</h1>
+	<p>In this webpage, we assume \( \Omega\) to be a Lipschitz domain.</p>
+	<section><h2 class="title">Theorems</h2>
+	<p><strong>Theorem 3.30</strong> \( H^s(\Omega ) = \tilde{H}^{-s}(\Omega )\) and \( \tilde{H}^s(\Omega)^* = H^{-s}(\Omega )\) for all \( s\in \mathbb{R}\). <br>
+	<strong>Theorem 3.33</strong> Let \( s\geq 0\) and \( s\not\in \left\{ {1\over 2}, {3\over 2}, {5\over 2}, \ldots \right\}\), then
+\[
+\tilde{H}^s (\Omega ) = H_0^s(\Omega ).
+\]
+	<strong>Theorem 3.40</strong> \( H_0^s(\Omega ) = H^s(\Omega )\) for \( 0\leq s\leq 1/2\).
+	</p>
+	</section>
+	<div><h2>Reference</h2>
+		<p>McLean, W.C.H., 2000. <em>Strongly elliptic systems and boundary integral equations</em>. Cambridge university press.</p>
+	</div>
+	<!--<ul class="pager">
+  		<li><a href="Interpolation.html">Previous</a></li>
+  		<li class="disabled"><a href="#">Next</a></li>
+	</ul>-->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+  	   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </body>
+</html>
