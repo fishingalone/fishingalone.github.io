@@ -50,11 +50,11 @@ with equivalent norms. The K-method will be used to prove the interpolation prop
 	</section>
 	<section><h2>The K-Method</h2>
 	<p>The <em>K-functional</em> is defined for \( t>0\) and \( u\in X_0+X_1\) by
-\[
+
 \begin{equation} \label{eq:1}
 K(t,u) := \inf_{\substack{u_0\in X_0, u_1\in X_1\\\text{s.t. } u=u_0+u_1}} \left\{ \left( \| u_0\|_{X_0}^2 + t^2\| u_1\|_{X_1}^2\right)^{1/2} \right\}.
 \end{equation}
-\]
+
 	Next, we define a weighted \( L_q\)-norm,
 \[
 \| f\|_{\theta,q} := \left( \int_0^\infty |t^{-\theta} f(t)|^q {\mathrm{d}t\over t}\right)^{1/q},\quad \text{ for } 0<\theta <1\text{ and } 1\leq q<\infty,
@@ -79,7 +79,7 @@ K_{\theta,q} (X) := \left\{ u\in X_0+X_1 \, :\, \| K(\cdot, u)\|_{\theta, q} <\i
 	</p>
 	<button type="button" class="btn btn-outline-info" data-toggle="collapse" data-target="#pflem1">Proof:</button>
 	<div id="pflem1" class="collapse">
-		<p>By definition \( \eqref{eq:1}\),
+		<p>By definition \eqref{eq:1},
 \[
 K(t,u) \leq \min (\| u\|_{X_0}, t\| u\|_{X_1} ) = \| u\|_{X_0} \min (1, at),
 \]
