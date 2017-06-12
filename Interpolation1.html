@@ -21,8 +21,8 @@
     <body>
 	<h1 class="text-center">Interpolation Spaces</h1>
 	<section><h2>Interpolation of Soblev spaces</h2>
-	If \( X_0\) and \( X_1\) are Sobolev spaces, then the K-functional can be computed explicitly via the Fourier transform. 
-	<p><strong>Theorem 1</strong> Suppose \( s_0,s_1\in \mathbb{R}\). Let \( s=(1-\theta )s_0 + \theta s_1, 0<\theta <1 \) be a number in between. We can prove the following interpolation result 
+	<p>If \( X_0\) and \( X_1\) are Sobolev spaces, then the K-functional can be computed explicitly via the Fourier transform. <br>
+	<strong>Theorem 1</strong> Suppose \( s_0,s_1\in \mathbb{R}\). Let \( s=(1-\theta )s_0 + \theta s_1, 0<\theta <1 \) be a number in between. We can prove the following interpolation result 
 \[
 \left( H^{s_0}(\mathbb{R}^n), H^{s_1}(\mathbb{R}^n) \right)_{\theta,2} = H^s(\mathbb{R}^n).
 \]
@@ -46,10 +46,18 @@ a(\xi ) = (1+|\xi|^2)^{(s_1-s_0)/2}\quad \text{ and } \quad f(t) = {t\over \sqrt
 \]
 		Thus,
 \[
-\| K(\cdot, u)\|_{\theta,2}^2 = \int_{\mathbb{R}^n} (1+|\xi|^2)^{s_0} a(\xi)^{2\theta} \| f\|_{\theta,2}^2 |\hat{u}(\xu )|^2\,\mathrm{d} \xi = \| f\|_{\theta,2}^2 \| u\|_{H^s(\mathbb{R}^n)}^2.
+\| K(\cdot, u)\|_{\theta,2}^2 = \int_{\mathbb{R}^n} (1+|\xi|^2)^{s_0} a(\xi)^{2\theta} \| f\|_{\theta,2}^2 |\hat{u}(\xi )|^2\,\mathrm{d} \xi = \| f\|_{\theta,2}^2 \| u\|_{H^s(\mathbb{R}^n)}^2.
 \]
+		Finally, the norm\( \| \cdot\)_{K_{\theta,2}(X)}\) is equivalent to the norm \( \| \cdot\|_{H^s(\mathbb{R}^n)}\).
 		</p>
 	</div>
+	
+	<p><strong>Theorem 2</strong> Let \( \Omega\) be a non-empty open set in \( \mathbb{R}^n\). Suppose \( s_0,s_1\in\mathbb{R}^n\) and \( s=(1-\theta)s_0 +\theta s_1, 0<\theta <1\) a number in between. Then
+\[
+
+\]
+	</p>
+	<h3>Appendix</h3>
 	<p><strong>B.4</strong> Fix real numbers \( A_0>0\) and \( A_1>0\) and a complex number \( z\). Show that
 \[
 \min_{z=z_0+z_1} \left( A_0 |z_0|^2 + A_1 |z_1|^2 \right) = {A_0A_1\over A_0+A_1} |z|^2,
