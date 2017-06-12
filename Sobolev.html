@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<style>
 	   body {
-			counter-reset: section 2;
+			counter-reset: section;
 			margin: 5em 20em;
 	   }
 	   h2.title:before {
@@ -21,8 +21,32 @@
     <body>
 	<h1 class="text-center">Relationship between Sobolev spaces</h1>
 	<p>In this webpage, we assume \( \Omega\) to be a Lipschitz domain.</p>
+	<section><h2 class="title">Definitions</h2>
+	<p><strong>Definition 1</strong>
+\[
+H^{-s} (\mathbb{R}^n ) := \left[ H^s(\mathbb{R}^n )\right]^*,\quad \text{ for } s\in \mathbb{R}.
+\]
+	<strong>Definition 2</strong> For any closed set \( F\subset \mathbb{R}^n\), we define the associated Sobolev space of order \( s\) by
+\[
+H_F^s := \left\{ u\in H^s(\mathbb{R}^n \, :\, \mathop{\mathrm{supp}} u\subset F\right\}.
+\]
+	<strong>Definition 3</strong> For any non-empty open set \( \Omega\subset \mathbb{R}^n\) we define
+\[
+H^s (\Omega ) := \left\{ u\in \mathcal{D}^*(\Omega ): u = U|_\Omega \text{ for some } U\in H^s(\mathbb{R}^n )\right\}.
+\]
+	<strong>Definition 4</strong>
+\[
+\tilde{H}^s (\Omega ) := \text{ closure of } \mathcal{D}(\Omega )\text{ in } H^s(\mathbb{R}^n).
+\]	
+	<strong>Definition 5</strong>
+\[
+H^s_0 (\Omega ) := \text{ closure of } \mathcal{D}(\Omega )\text{ in } H^s(\Omega ).
+\]
+	</p>
+	</section>
 	<section><h2 class="title">Theorems</h2>
-	<p><strong>Theorem 3.30</strong> \( H^s(\Omega ) = \tilde{H}^{-s}(\Omega )\) and \( \tilde{H}^s(\Omega)^* = H^{-s}(\Omega )\) for all \( s\in \mathbb{R}\). <br>
+	<p><strong>Theorem 3.30</strong> \( H^s(\Omega )^* = \tilde{H}^{-s}(\Omega )\) and \( \tilde{H}^s(\Omega)^* = H^{-s}(\Omega )\) for all \( s\in \mathbb{R}\). <br>
+	<strong>Theorem 3.29</strong> \( \tilde{H}^s(\Omega ) = H_{\overline{\Omega}}^s\) for \( s\in \mathbb{R}\).<br>
 	<strong>Theorem 3.33</strong> Let \( s\geq 0\) and \( s\not\in \left\{ {1\over 2}, {3\over 2}, {5\over 2}, \ldots \right\}\), then
 \[
 \tilde{H}^s (\Omega ) = H_0^s(\Omega ).
