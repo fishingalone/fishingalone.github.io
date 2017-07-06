@@ -162,7 +162,7 @@ where \( \gamma\) is a parameter, \( 0\leq \gamma \leq 1\), called the discount 
 \[
 V^\pi (s) = E_\pi (R_t \, | \, s_t = s) = E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+1} \, | \, s_t = s \right).
 \]
-We call function \( V^\pi\) the <i>state value function for policy</i> \( \pi\).<br>
+We call function \( V^\pi\) the <i>(state) value function for policy</i> \( \pi\).<br>
 Similarly, we define the <i>action value function for policy</i> \( \pi\) as
 \[
 Q^\pi (s,a) = E_\pi (R_t \, | \, s_t = s,a_t = a) = E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+1} \, | \, s_t = s, a_t = a \right).
@@ -173,29 +173,27 @@ V^\pi (s) = \sum_a \pi (s,a) Q^\pi (s,a).
 \]
 		</p>
 
-		<h3>Bellman Equation</h3>
-		<p>There is an iterative relationship of the value function that we can take advantage of,
+		<h3>Policy Evaluation</h3>
+		<p>We would like to evaluate the value function for each state. This step is known as <a name="policyevaluation"><i>policy evaluation</i></a>. There is an iterative relationship of the value function that we can take advantage of
+\[
+V^\pi (s) = \sum_a \pi(s,a) \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^\pi (s')\right),
+\]
+		where it is implicit that the actions \( a\) are taken from the set \( A(s)\) and the next state \( s'\) are taken from the set \( S\).	This is known as the <i>Bellman equation</i>. Given a policy, the Bellman equation gives us a way to compute the value function from solving an \( |S|\times |S|\) linear system. The proof is given as follows
 \[
 \begin{align*}
 V^\pi (s) &= E_\pi ( R_t \, |\, s_t = s ) \\
 &= E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+1} \, |\, s_t = s \right) \\
 &= E_\pi \left( r_{t+1} + \gamma \sum_{k=0}^\infty \gamma^k r_{t+k+2} \, |\, s_t = s \right) \\
 & = \sum_a \pi (s,a) \sum_{s'} P_{s,s'}^a \left[ R_{s,s'}^a + \gamma E_\pi \left( \sum_{k=0}^\infty \gamma^k r_{t+k+2} \, | \, s_{t+1} = s' \right) \right] \\
-& = \sum_a \pi(s,a) \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^\pi (s')\right),
+& = \sum_a \pi(s,a) \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V^\pi (s')\right).
 \end{align*}
-\]
-		where it is implicit that the actions \( a\) are taken from the set \( A(s)\) and the next state \( s'\) are taken from the set \( S\).
-		This is known as the <i>Bellman equation</i>. Given a policy, the Bellman equation gives us a way to compute the value function from solving an \( |S|\times |S|\) linear system.<br>
-		Similarly, the Bellman equation for action value policy function is
-\[
-Q^\pi (s,a) = \sum_{s'} P_{s,s'}^a ( R_{s,s'}^a + \gamma V(s') ).
 \]
 		</p>
 	</section>
 	<section>
 		<h2>Optimal policy</h2>
 		<h3>Definitions</h3>
-		<p>We say a policy \( \pi\) is better than or equal to policy \( \pi'\) if its value function is greater than or equal to that of \( \pi'\) for all states \( V^\pi (s)\geq V^{\pi'} (s), \forall s\in S\). There is always at least one policy that is better than or equal to all other policies. They are called <i>optimal policies</i> and we deonte them as \( \pi^*\). They share the same state value functions and action value functions
+		<p>Our ultimate goal in the MDP is to get the best policy. We say a policy \( \pi\) is better than or equal to policy \( \pi'\) if its value function is greater than or equal to that of \( \pi'\) for all states \( V^\pi (s)\geq V^{\pi'} (s), \forall s\in S\). There is always at least one policy that is better than or equal to all other policies. They are called <i>optimal policies</i> and we deonte them as \( \pi^*\). They share the same state value functions and action value functions
 \[
 V^*(s) = \max_\pi V^\pi (s),
 \]
@@ -204,8 +202,8 @@ and
 Q^*(s,a) = \max_\pi Q^\pi (s,a).
 \]
 		</p>
-		<h3>Bellman optimality equation and value iteration</h3>
-		<p>We can deduce for these two value functions the Bellman equations, called the <i>Bellman optimality equation</i> .
+		<h3>Value iteration</h3>
+		<p>We take an indirect approach to obtain the optimal policy: first figure out the optimal value function values and then the optimal policy. To compute the optimal value function values, we utilize an iterative relationship called <i>Bellman optimality equation</i>.
 \[
 \begin{align*}
 V^* (s) &= \max_{a\in A(s)} Q^*(s,a)\\
@@ -213,7 +211,7 @@ V^* (s) &= \max_{a\in A(s)} Q^*(s,a)\\
 \end{align*}
 \]
 		<i>Value iteration</i> means to solve for the optimal value function using the fixed point iteration. One step would look like
-		<a name="policyevaluation">
+		<a name="valueiteration">
 \[
 V_{k+1} (s) = \max_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V_k(s') \right),\quad k=0,1,2,\ldots,
 \]
@@ -226,7 +224,7 @@ V_{k+1} (s) = \max_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V_k(s') \ri
 		Actually any policy that assigns nonzero possibility only to these actions is an optimal policy.
 		</p>
 		<h3>Policy iteration</h3>
-		<p>There is another way to achieve the optimal policy. We start with a random policy \( \pi\) and say we have calculated its value function \( V^\pi \) using policy evaluation. We can invoke the following step, called the <a name="greedyimprovement">greedy improvement</a> step,
+		<p>There is another way to achieve the optimal policy. We start with a random policy \( \pi\) and say we have calculated its value function \( V^\pi \) using <a href="#policyevaluation">policy evaluation</a>. We can invoke the following step, called the <a name="greedyimprovement">greedy improvement</a> step,
 \[
 \begin{align*}
 \pi' (s) &= \mathop{\mathrm{arg\,max}}_a Q^\pi (s,a) \\
@@ -235,9 +233,28 @@ V_{k+1} (s) = \max_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V_k(s') \ri
 \]
 		to improve the policy. The reason is we can prove that \( V^{\pi'} \geq V^\pi\) if \( Q^\pi(s,\pi'(s)) \geq V^\pi (s)\).</p>
 		<h3>Modified Policy iteration</h3>
-		<p>We interleave the several <a href="#policyevaluation">policy evaluation steps</a> with the <a href="#greedyimprovement">greedy improvement step</a> in the hope that \( V,\pi \) will converge to \( V^*, \pi^*\) faster.</p>
+		<p>We interleave the several <a href="#valueiteration">policy evaluation steps</a> with the <a href="#greedyimprovement">greedy improvement step</a> in the hope that \( V,\pi \) will converge to \( V^*, \pi^*\) faster.</p>
 	</section>
 	<section>
+	<h2>Appendix</h2>
+	<p>This appendix is written to clarify the relationship between state functions.</p>
+<table>
+	<tr>
+		<th></th>
+		<th>\( V^\pi\)</th>
+		<th>\( Q^\pi\)</th>
+	</tr>
+	<tr>
+		<td>\( V^\pi\)</td>
+		<td>Bellman equation</td>
+		<td>\( V^\pi (s) = \sum_a \pi(s,a) Q^\pi (s,a)\)</td>
+	</tr>
+	<tr>
+		<td>\( Q^\pi\)</td>
+		<td>\( Q^\pi (s,a) = \sum_{s'} P_{s,s'}^a (R_{s,s'}^a + \gamma V(s') )\)</td>
+		<td>Q</td>
+	</tr>
+</table>
 	<h2>Reference</h2>
 	<p>Richard S. Sutton and Andrew G. Barto. 1998. Introduction to Reinforcement Learning (1st ed.). MIT Press, Cambridge, MA, USA.</p>
 	</section>
