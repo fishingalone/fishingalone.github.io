@@ -28,6 +28,10 @@
 		td {
 			text-align: center;
 		}
+		table.columnsep td {
+			border-left: 1px solid;
+			border-right: 1px solid;
+		}
 		h2:before {
 			counter-increment: section;
 			content: counter(section) ". ";
@@ -251,8 +255,25 @@ V_{k+1} (s) = \max_a \sum_{s'} P_{s,s'}^a \left( R_{s,s'}^a + \gamma V_k(s') \ri
 	</tr>
 	<tr>
 		<td>\( Q^\pi\)</td>
-		<td>\( Q^\pi (s,a) = \sum_{s'} P_{s,s'}^a (R_{s,s'}^a + \gamma V(s') )\)</td>
-		<td>Q</td>
+		<td>\( Q^\pi (s,a) = \sum_{s'} P_{s,s'}^a (R_{s,s'}^a + \gamma V^\pi (s') )\)</td>
+		<td>\( Q^\pi (s,a) = \sum_{s'} P_{s,s'}^a (R_{s,s'}^a + \gamma \sum_a \pi (s',a) Q^\pi (s',a) )\)</td>
+	</tr>
+</table>
+<table class="columnsep">
+	<tr>
+		<th></th>
+		<th>\( V^*\)</th>
+		<th>\( Q^*\)</th>
+	</tr>
+	<tr>
+		<td>\( V^*\)</td>
+		<td>Bellman optimality equation</td>
+		<td>\( V^* (s) = \sum_a \pi(s,a) Q^* (s,a)\)</td>
+	</tr>
+	<tr>
+		<td>\( Q^*\)</td>
+		<td>\( Q^* (s,a) = \sum_{s'} P_{s,s'}^a (R_{s,s'}^a + \gamma V^* (s') )\)</td>
+		<td>\( Q^* (s,a) = \sum_{s'} P_{s,s'}^a (R_{s,s'}^a + \gamma \sum_a \pi (s',a) Q^* (s',a) )\)</td>
 	</tr>
 </table>
 	<h2>Reference</h2>
